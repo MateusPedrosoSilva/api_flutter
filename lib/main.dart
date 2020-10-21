@@ -32,12 +32,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _accessToken = '';
+  String _accessToken = 'no token';
+  int _cases;
+  int _deaths;
 
   void _updateAccessToken() async {
     final apiService = APIService(API.sandbox());
     final accessToken = await apiService.getAccessToken();
-    setState(() => _accessToken = accessToken);
+    final cases = await apiService.getEndPointData(
+      accessToken: accessToken,
+      endpoint: Endpoint.cases,
+    );
+    final deaths = await apiService.getEndPointData(
+      accessToken: accessToken,
+      endpoint: Endpoint.deaths,
+    );
+    setState(() {
+      _accessToken = accessToken;
+      _cases = cases;
+      _deaths = deaths;
+    });
   }
 
   @override
@@ -57,6 +71,24 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_accessToken',
               style: Theme.of(context).textTheme.headline4,
             ),
+            if (_cases != null)
+              Text(
+                'Cases',
+              ),
+            if (_cases != null)
+              Text(
+                '$_cases',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            if (_deaths != null)
+              Text(
+                'Deaths',
+              ),
+            if (_deaths != null)
+              Text(
+                '$_deaths',
+                style: Theme.of(context).textTheme.headline4,
+              ),
           ],
         ),
       ),
