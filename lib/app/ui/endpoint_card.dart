@@ -5,6 +5,14 @@ class EndpointCard extends StatelessWidget {
   final Endpoint endpoint;
   final int value;
 
+  static Map<Endpoint, String> _cardTitles = {
+    Endpoint.cases: 'Cases',
+    Endpoint.casesSuspected: 'casesSuspected',
+    Endpoint.casesConfirmed: 'casesConfirmed',
+    Endpoint.deaths: 'deaths',
+    Endpoint.recovered: 'recovered',
+  };
+
   const EndpointCard({Key key, this.endpoint, this.value}) : super(key: key);
 
   @override
@@ -18,13 +26,14 @@ class EndpointCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Cases',
+                _cardTitles[endpoint],
                 style: Theme.of(context).textTheme.headline5,
               ),
-
               Text(
                 value?.toString() ?? '',
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headline4.copyWith(
+                      fontSize: 20,
+                    ),
               ),
               // other way
               // Text(value != null ? value.toString() : ''),
