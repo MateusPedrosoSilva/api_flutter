@@ -1,5 +1,6 @@
 import 'package:api_flutter/app/services/api.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EndpointCardData {
   final String title;
@@ -41,6 +42,13 @@ class EndpointCard extends StatelessWidget {
     ),
   };
 
+  String get formattedValue {
+    if (value == null) {
+      return '';
+    }
+    return NumberFormat('#,###,###,###').format(value);
+  }
+
   const EndpointCard({Key key, this.endpoint, this.value}) : super(key: key);
 
   @override
@@ -74,7 +82,7 @@ class EndpointCard extends StatelessWidget {
                       color: cardData.color,
                     ),
                     Text(
-                      value?.toString() ?? '',
+                      formattedValue,
                       style: Theme.of(context).textTheme.headline4.copyWith(
                             fontWeight: FontWeight.w500,
                             color: cardData.color,

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'app/services/api_services.dart';
 
-void main() {
+Future<void> main() async {
   runApp(MyApp());
 }
 
